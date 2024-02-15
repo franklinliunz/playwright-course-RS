@@ -16,7 +16,7 @@ export class ProductPage{
     
 
     visit = async () => { 
-        await this.page.goto("localhost:2221")
+        await this.page.goto("/")
     }
 
     sortByCheapest = async() => {
@@ -28,7 +28,7 @@ export class ProductPage{
         await this.sortDropdown.selectOption("price-asc")
        
         const productTitleAfterSort = this.productTitle.allInnerTexts()
-      //  expect(productTitleAfterSort).not.toEqual(productTitleBeforeSort)
+        //expect(productTitleAfterSort).not.toEqual(productTitleBeforeSort)
         
     }
 
@@ -43,8 +43,6 @@ export class ProductPage{
         if (isDesktopViewport.isDesktop()){
             basketCountBeforeAdding = await navigation.getBasketCount()
         }
-
-
         
         await specificButton.click()
         await expect(specificButton).toHaveText("Remove from Basket")
@@ -54,7 +52,6 @@ export class ProductPage{
             expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding)
 
         }
-        
-        
+ 
     }
 }

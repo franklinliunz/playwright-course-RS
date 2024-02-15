@@ -13,8 +13,9 @@ export class CheckOut{
     removeCheapestProduct = async () => {
         await this.basketCards.first().waitFor()
         await this.basketItemPrice.first().waitFor()
+        //If you don't await here, you'll get null results 
         const allPriceTexts = await this.basketItemPrice.allInnerTexts()
-        const itemsBeforeRemoval = this.basketCards.count()
+        const itemsBeforeRemoval = await  this.basketCards.count()
 
         const allPriceNumbers = allPriceTexts.map((element) => {
             const withoutDollarSign = element.replace("$","")
@@ -27,8 +28,7 @@ export class CheckOut{
         
         
         await smallestPriceRemoveButton.click()
-       //This line is currently timing out, commenting out
-        // await expect(this.basketCards).toHaveCount(itemsBeforeRemoval - 1)
+        await expect(this.basketCards).toHaveCount(itemsBeforeRemoval - 1)
  
     }
 

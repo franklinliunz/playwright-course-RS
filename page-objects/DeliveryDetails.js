@@ -41,26 +41,25 @@ export class DeliveryDetails{
     }
 
     saveDetails = async() => {
-        //await this.savedAddresses.waitFor()
         const addressCountBeforeSave = this.savedAddresses.count()
         await this.saveAddressButton.waitFor()
         await this.saveAddressButton.click()
         await this.saveAddressButton.waitFor()
         const printSavedAddresses= await this.savedAddresses.waitFor()
-        //await expect(this.savedAddresses).toHaveCount(parseInt(addressCountBeforeSave + 1),10)
-        //await this.page.pause()
-        //console.log({printSavedAddresses})
-       // expect(this.savedAddresses.first().innerText()).toBe(
-         //   await this.firstName.inputValue())
+        //we need to instantiate this first so we can use it in assertion later
+        let verifyFirstName = this.savedAddressFirstName
+
+        expect(verifyFirstName).toHaveText(
+            await this.firstName.inputValue())
             
-        //await this.page.pause()
     }
 
     continueToPayment = async() => {
         await this.continueToPaymentButton.waitFor()
-        await this.continueToPaymentButton.click()
-        //console.log(this.page.url())
-        //await this.page.waitForURL("/\/payment/",{timeout:7000})
+        await this.continueToPaymentButton.click()  
+        await this.page.waitForURL(/\/payment/)
+           
+    
     }
 
 }

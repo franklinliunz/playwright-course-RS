@@ -25,8 +25,7 @@ export class Navigation{
 
         await this.checkOutLink.waitFor()
         await this.checkOutLink.click()
-        //waitForURL currently times out - commenting out
-        //await this.page.waitForURL("/\/basket/")
+        await this.page.waitForURL(/\/basket/)
     }
 
 

@@ -43,11 +43,11 @@ export class PaymentPage{
 
         const totalIncludingDiscount = await this.discountTotal.innerText()
         const totalWithDiscountNumberOnly = parseInt(totalIncludingDiscount.replace("$",""),10)
-       // console.log({totalWithDiscountNumberOnly})
+
         await this.totalValue.waitFor()
         const totalValueText = await this.totalValue.innerText()
         const totalWithValueNumberOnly = parseInt(totalValueText.replace("$",""),10)
-        //console.log({totalWithValueNumberOnly})
+
     }
 
     fillCreditCardDetails = async(CCDetails) => {
@@ -56,10 +56,9 @@ export class PaymentPage{
         await this.creditCardNumberInput.waitFor()
         await this.creditCardNumberInput.fill(CCDetails.creditCardNumber)
         await this.creditCardValidUntilInput.waitFor()
-        await this.creditCardValidUntilInput.fill(CCDetails.creditCardMonthYear)
+        await this.creditCardValidUntilInput.pressSequentially(CCDetails.creditCardMonthYear)
         await this.creditCardCVCInput.waitFor()
-        await this.creditCardCVCInput.fill(CCDetails.CVC)
-        
+        await this.creditCardCVCInput.fill(CCDetails.CVC)  
 
     }
 
@@ -67,7 +66,6 @@ export class PaymentPage{
         await this.payButton.waitFor()
         await this.payButton.click()
         await this.page.waitForURL(/\/thank-you/, {timeout: 3000})
-
     }
 
 
